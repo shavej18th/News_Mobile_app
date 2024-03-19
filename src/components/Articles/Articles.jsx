@@ -1,8 +1,11 @@
 import React from 'react'
-import { View,Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View,Text, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { HorizontalScale, ModerateScale, VerticalScale } from '../../talons/Matrix'
 
 function Articles({ item }) {
+    const RedirectTo = (url) => Linking.canOpenURL(url).then(() => {
+        Linking.openURL(url);
+    });
   return (
     <View style={styles.container}>
         <View style={styles.item_container}>
@@ -21,8 +24,8 @@ function Articles({ item }) {
                 <Text style={styles.publidh_at}>At : </Text>
               <Text style={styles.publish_timing}>{item.publishedAt? item.publishedAt:'NAN'}</Text>
               </View>
-                <TouchableOpacity>
-                <Text style={styles.desc_text}>Read More...</Text>
+                <TouchableOpacity onPress={()=>RedirectTo(item?.url)}>
+                <Text style={[styles.desc_text,{textDecorationLine:'underline'}]}>Read More...</Text>
                 </TouchableOpacity>
             </View>
         </View>
